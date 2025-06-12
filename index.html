@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tuntutan Sivil Kemalangan</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+   
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+    font-family: "Faustina", serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px;
+  }
+
+  #app {
+    background: rgba(255 255 255 / 0.08);
+    max-width: 480px;
+    width: 100%;
+    border-radius: 16px;
+    padding: 48px 32px 56px;
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 600px;
+  }
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 40px;
+  }
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6);
+    margin-bottom: 24px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .profile-name {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  .profile-description {
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(255 255 255 / 0.75);
+    margin-bottom: 48px;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .link-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  button.link-item,
+  a.link-item {
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.32s ease, color 0.32s ease, transform 0.22s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    border: none;
+  }
+  button.link-item:hover,
+  button.link-item:focus,
+  a.link-item:hover,
+  a.link-item:focus {
+    background: #00ffcc;
+    color: #0a1f1c;
+    outline: none;
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px rgba(1, 255, 204, 0.6);
+  }
+  button.link-item:focus-visible,
+  a.link-item:focus-visible {
+    outline: 3px solid #00ffcc;
+    outline-offset: 3px;
+  }
+
+  #victims-info {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px 28px;
+            color: #e0f2f1;
+        }
+
+        .victim-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .victim {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            width: 150px;
+        }
+
+        .victim img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+  /* Social icons container */
+  .social-icons {
+    margin-top: auto;
+    display: flex;
+    gap: 32px;
+    padding-top: 24px;
+    width: 100%;
+    justify-content: center;
+  }
+  .social-icons a {
+    color: rgba(255 255 255 / 0.85);
+    text-decoration: none;
+    font-size: 28px;
+    transition: color 0.3s ease;
+  }
+  .social-icons a:hover,
+  .social-icons a:focus {
+    color: #00ffcc;
+    outline: none;
+  }
+  .social-icons a:focus-visible {
+    outline: 3px solid #00ffcc;
+    outline-offset: 2px;
+  }
+  #step-guide, #rule-info, #about-me {
+    width: 100%;
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+    color: #e0f2f1;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #step-guide h2, #rule-info h2, #about-me h2 {
+    color: #00ffcc;
+    margin-top: 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  #step-guide ol, #rule-info ol {
+    padding-left: 20px;
+    margin: 0;
+  }
+  #step-guide li, #rule-info li {
+    margin-bottom: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  #step-guide p, #rule-info p, #about-me p {
+    font-size: 1rem;
+    margin-top: 8px;
+    text-align: center;
+  }
+  #step-guide a, #rule-info a {
+    color: #00ffcc;
+    text-decoration: underline;
+  }
+
+  #btn-back, #btn-rule-back {
+    align-self: center;
+    margin-top: 12px;
+    background: #1abc9c;
+    color: #0a1f1c;
+    border-radius: 12px;
+    padding: 10px 28px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  #btn-back:hover, #btn-rule-back:hover,
+  #btn-back:focus, #btn-rule-back:focus {
+    background: #00ffbf;
+    outline: none;
+  }
+  #btn-back:focus-visible, #btn-rule-back:focus-visible {
+    outline: 3px solid #00ffcc;
+    outline-offset: 2px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    #app {
+      padding: 32px 24px 40px;
+      min-height: 600px;
+    }
+    .profile-name {
+      font-size: 1.75rem;
+    }
+    .profile-description {
+      font-size: 0.95rem;
+    }
+    button.link-item,
+    a.link-item {
+      font-size: 1rem;
+      padding: 12px 20px;
+      min-height: 48px;
+    }
+    #step-guide li, #rule-info li {
+      font-size: 0.95rem;
+    }
+    #btn-back, #btn-rule-back {
+      font-size: 0.95rem;
+      padding: 10px 22px;
+    }
+  }
+
+ /* Contact info styles */
+  .contact-info {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 12px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .contact-info a {
+    color: #00ffcc;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-info a i {
+    font-size: 30px;
+    color: #00ffcc;
+  }
+    .green-title {
+       color: #00ffcc; /* Warna hijau */
+       text-align: center;
+   }
+</style>
+    <script>
+        function showGuide() {
+            document.getElementById('link-list').style.display = 'none';
+            document.getElementById('step-guide').style.display = 'flex';
+            document.getElementById('rule-info').style.display = 'none';
+            document.getElementById('about-me').style.display = 'none';
+            document.getElementById('victims-info').style.display = 'none';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function showRules() {
+            document.getElementById('link-list').style.display = 'none';
+            document.getElementById('rule-info').style.display = 'flex';
+            document.getElementById('step-guide').style.display = 'none';
+            document.getElementById('about-me').style.display = 'none';
+            document.getElementById('victims-info').style.display = 'none';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+  
+  function showAboutMe() {
+            document.getElementById('link-list').style.display = 'none';
+            document.getElementById('about-me').style.display = 'flex';
+            document.getElementById('step-guide').style.display = 'none';
+            document.getElementById('rule-info').style.display = 'none';
+            document.getElementById('victims-info').style.display = 'none';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+  
+  function showVictims() {
+            document.getElementById('link-list').style.display = 'none';
+            document.getElementById('victims-info').style.display = 'flex';
+            document.getElementById('step-guide').style.display = 'none';
+            document.getElementById('rule-info').style.display = 'none';
+            document.getElementById('about-me').style.display = 'none';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+  
+  function backToLinks() {
+            document.getElementById('step-guide').style.display = 'none';
+            document.getElementById('rule-info').style.display = 'none';
+            document.getElementById('about-me').style.display = 'none';
+            document.getElementById('victims-info').style.display = 'none';
+            document.getElementById('link-list').style.display = 'flex';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function toggleContactInfo() {
+            const contactInfo = document.getElementById('contact-info');
+            contactInfo.style.display = contactInfo.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</head>
+<body>
+  <main id="app" role="main" aria-label="Laman Tuntutan Sivil Linktree Style">
+    <section class="profile" aria-label="Maklumat Profil">
+      <div class="profile-image">
+        <img src="./images/logo.png" alt="logo" />
+      </div>
+      <h1 class="profile-name">Tuntutan Sivil Kemalangan</h1>
+    </section>
+
+    <nav id="link-list" class="link-list" aria-label="Senarai Pautan Utama">
+      <button class="link-item" aria-label="About Me" onclick="showAboutMe()" type="button">About Me</button>
+      <button class="link-item" aria-label="Panduan Proses" onclick="showGuide()" type="button">Panduan Proses</button>
+      <button class="link-item" aria-label="Maklumat Peraturan" onclick="showRules()" type="button">Maklumat Peraturan</button>
+      <button class="link-item" aria-label="Mangsa-Mangsa Kemalangan" onclick="showVictims()" type="button">Mangsa-Mangsa Kemalangan</button>
+      <button class="link-item" aria-label="Hubungi Kami" onclick="toggleContactInfo()" type="button">Hubungi Kami</button>
+
+      <div id="contact-info" class="contact-info" aria-label="Maklumat Hubungi">
+        <a href="tel:+601133190051" aria-label="Nombor Telefon">
+          <i class="fa fa-phone"></i> Nombor Telefon
+        </a>
+        <a href="https://wa.me/601133190051" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="mailto:wakieuddin777@gmail.com" aria-label="Email">
+          <i class="fa fa-envelope"></i> Email
+        </a>
+        <a href="https://www.instagram.com/waqiiio" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://www.facebook.com/share/12MF6YxqgrP/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook"></i> Facebook
+        </a>
+        <a href="https://www.tiktok.com/@telagakunyit003_?_t=ZS-8x787azQb5B&_r=1" target="_blank" aria-label="TikTok">
+          <i class="fab fa-tiktok"></i> TikTok
+        </a>
+      </div>
+    </nav>
+
+    <section id="victims-info" aria-label="Maklumat Mangsa">
+            <h2 class="green-title">Mangsa-Mangsa Kemalangan</h2>
+            <div class="victim-container">
+                <div class="victim">
+                    <img src="./images/mangsa1.png" alt="Mangsa 1" /> 
+                    <p>Seseorang yang sedang mengalami kecederaan kaki akibat kemalangan.</p>
+                </div>
+                <div class="victim">
+                    <img src="./images/mangsa6.png" alt="Mangsa 2" />
+                    <p>Individu sedang menerima tuntutan sivil beserta dokumen di pihak berkuasa berkaitan.</p>
+                </div>
+                <div class="victim">
+                    <img src="./images/mangsa2.png" alt="Mangsa 3" />
+                    <p>Seorang pesakit yang mengalami lumpuh, kecederaan saraf, yang menyebabkan ketidakupayaan untuk bergerak sendiri.</p>
+                </div>
+                <div class="victim">
+                    <img src="./images/mangsa3.png" alt="Mangsa 4" />
+                    <p>Seorang wanita sedang menjalani proses pemulihan selepas kehilangan sebahagian anggota badan.</p>
+                </div>
+                <div class="victim">
+                    <img src="./images/mangsa4.png" alt="Mangsa 5" />
+                    <p>Gambar pesakit yang menerima rawatan intensif di hospital, menunjukkan keperluan perubatan yang tinggi, sesuai sebagai bukti dalam tuntutan sivil.</p>
+                </div>
+                <div class="victim">
+                    <img src="./images/mangsa7.png" alt="Mangsa 6" />
+                    <p>Pesakit sedang menandatangani dokumen untuk proses tuntutan sivil.</p>
+                </div>
+            </div>
+            <button id="btn-back" onclick="backToLinks()" type="button" aria-label="Kembali ke senarai pautan">Kembali</button>
+        </section>
+
+    <section id="step-guide" aria-label="Panduan Tuntutan Sivil Kemalangan">
+      <h2>Panduan Langkah Demi Langkah Tuntutan Sivil Kemalangan</h2>
+      <p>Berikut adalah langkah-langkah penting dalam proses tuntutan sivil kemalangan:</p>
+      <ul>
+        <li>Laporkan kemalangan kepada polis dan dapatkan laporan polis rasmi.</li>
+        <li>Dapatkan rawatan perubatan serta laporkan kecederaan kepada doktor.</li>
+        <li>Kumpulkan bukti seperti gambar kemalangan, kerosakan kenderaan, dan laporan perubatan.</li>
+        <li>Hubungi peguam atau pihak yang berpengalaman untuk panduan lanjut.</li>
+        <li>Mula proses tuntutan dengan mengisi borang yang sesuai dan mengemukakan dokumen sokongan.</li>
+        <li>Ikuti proses rundingan atau tindakan undang-undang jika perlu.</li>
+      </ul>
+      <p>Untuk maklumat lebih terperinci, sila semak peraturan dan undang-undang berkaitan di bahagian <a href="#rule-info">Maklumat Peraturan</a>.</p>
+      <button id="btn-back" onclick="backToLinks()" type="button" aria-label="Kembali ke senarai pautan">Kembali</button>
+    </section>
+
+    <section id="rule-info" aria-label="Maklumat Peraturan">
+      <h2>Maklumat Peraturan dan Undang-Undang</h2>
+      <p>Berikut adalah maklumat undang-undang penting berkaitan tuntutan sivil kemalangan di Malaysia:</p>
+      <ul>
+        <li><strong>Akta Pengangkutan Jalan 1987:</strong> <br> Mengawal pengurusan dan keselamatan jalan raya serta aspek tuntutan kerosakan.</li>
+        <li><strong>Akta Undang-Undang Sivil 1956:</strong> <br>Mengandungi prinsip-prinsip tuntutan sivil dan pampasan kerugian.</li>
+        <li>Mangsa kemalangan berhak membuat tuntutan dalam tempoh had masa seperti yang ditetapkan oleh undang-undang.</li>
+        <li>Proses tuntutan harus dilaksanakan mengikut prosedur rasmi untuk mengelakkan masalah undang-undang.</li>
+        <li>Rujuk kepada penasihat undang-undang atau peguam untuk bantuan lanjut dalam proses tuntutan.</li>
+      </ul>
+      <p>Baca lebih lanjut di <a href="https://www.jpj.gov.my/en/web/guest/saman" target="_blank" rel="noopener">JPJ Malaysia</a> dan <a href="https://www.agc.gov.my/agcportal/" target="_blank" rel="noopener">AGC Malaysia</a>.</p>
+      <button id="btn-rule-back" onclick="backToLinks()" type="button" aria-label="Kembali ke senarai pautan">Kembali</button>
+    </section>
+
+    <section id="about-me" aria-label="About Me" style="display: none;">
+      <h2>About Me</h2>
+      <p>Izinkan saya memperkenalkan diri. Nama saya Waqi, dan saya merupakan wakil daripada firma guaman G-Dorai Civil Claim. Firma kami mengkhusus dalam pengendalian tuntutan berkaitan kecederaan parah serta kes-kes yang melibatkan kematian. Kami juga menyediakan perkhidmatan pengiraan purata tuntutan bagi kes-kes tersebut, dengan tujuan memastikan pampasan yang sewajarnya dapat diperoleh oleh pihak yang terlibat.</p>
+      <button id="btn-back" onclick="backToLinks()" type="button" aria-label="Kembali ke senarai pautan">Kembali</button>
+    </section>
+  </main>
+</body>
+</html>
